@@ -4,7 +4,7 @@
 
 ![창고 운반 미리보기](assets/docs/demo-preview.gif)
 
-미리보기는 성공한 B 선반 운반 영상의 10배속 편집입니다. [전체 데모 영상](assets/docs/demo.mp4)은 시뮬레이션 시간 기준 영상으로 실제 계산 속도를 나타내지 않습니다.
+미리보기는 성공한 B 선반 운반 영상의 10배속 편집입니다. [전체 데모 영상 다운로드 (MP4)](https://github.com/Idea4Future/llm-qp-robotics/raw/refs/heads/main/assets/docs/demo.mp4)은 시뮬레이션 시간 기준 영상으로 실제 계산 속도를 나타내지 않습니다.
 
 [설치와 실행 안내](docs/ISAAC_SETUP.md)
 
