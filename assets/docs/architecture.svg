@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="680" viewBox="0 0 1160 680" role="img" aria-labelledby="title desc">
+<title id="title">LLM QP Robotics architecture</title>
+<desc id="desc">A local chat command and world registry feed Qwen. A typed compiler validates the objectives and constraints, then a fixed skill executor connects Nav2 global paths, local convex QPs, and the RB-Y1 in Isaac Sim. Simulated observations feed the controller and status returns to the chat interface.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#59756f"/></marker></defs>
+<rect width="1160" height="680" rx="22" fill="#f4f7f5"/>
+<g font-family="DejaVu Sans,Arial,sans-serif" fill="#173a35">
+<text x="42" y="48" font-size="25" font-weight="700">LLM QP Robotics</text><text x="42" y="75" font-size="14" fill="#526b66">Language defines the task. Solvers compute the motion. Simulation executes it.</text>
+<g stroke="#ccd9d4" fill="#fff" stroke-width="1.4">
+<rect x="42" y="118" width="235" height="132" rx="14"/><rect x="316" y="118" width="235" height="132" rx="14"/>
+<rect x="590" y="118" width="235" height="132" rx="14"/><rect x="864" y="118" width="254" height="132" rx="14"/>
+<rect x="42" y="306" width="235" height="120" rx="14" fill="#e9f0ed"/>
+<rect x="316" y="306" width="235" height="140" rx="14"/><rect x="590" y="306" width="235" height="140" rx="14" fill="#deeee7"/>
+<rect x="864" y="306" width="254" height="140" rx="14"/>
+<rect x="590" y="498" width="528" height="104" rx="14" fill="#e9f0ed"/>
+</g>
+<g font-size="17" font-weight="700">
+<text x="62" y="150">Chat UI</text><text x="336" y="150">Local LLM</text><text x="610" y="150">Compiler + validator</text><text x="884" y="150">Skill executor</text>
+<text x="62" y="340">World registry</text><text x="336" y="340">Nav2 / ROS 2 Humble</text><text x="610" y="340">Local convex QPs</text><text x="884" y="340">Isaac Sim + Isaac Lab</text><text x="610" y="532">Simulated observations</text>
+</g>
+<g font-size="14" fill="#3d5852">
+<text x="62" y="179">Natural-language command</text><text x="62" y="204">Stages + rendered equations</text><text x="62" y="229">Loopback web interface</text>
+<text x="336" y="179">Qwen3-4B / llama.cpp</text><text x="336" y="204">Select object + destination</text><text x="336" y="229">Propose weights + bounds</text>
+<text x="610" y="179">Typed schema + known IDs</text><text x="610" y="204">Numeric and semantic checks</text><text x="610" y="229">Expand supported 10 skills</text>
+<text x="884" y="179">Navigate → pick → tray</text><text x="884" y="204">Carry → regrasp → place</text><text x="884" y="229">State and completion gates</text>
+<text x="62" y="369">Object / shelf / slot IDs</text><text x="62" y="394">Known layout + observations</text>
+<text x="336" y="369">NavFn global path</text><text x="336" y="394">Scene-derived static map</text><text x="336" y="419">ComputePathToPose action</text>
+<text x="610" y="369">CVXPY + OSQP</text><text x="610" y="394">Arm joint-velocity QP</text><text x="610" y="419">Base velocity QP</text>
+<text x="884" y="369">RB-Y1 A v1.2 + gripper</text><text x="884" y="394">Wheel drives + contact grasp</text><text x="884" y="419">CPU PhysX / GPU rendering</text>
+<text x="610" y="559">Wrist RGB / ArUco · ideal raycast LiDAR</text><text x="610" y="584">Joint state + ground-truth base pose · contact / support checks</text>
+</g>
+<g fill="none" stroke="#59756f" stroke-width="2" marker-end="url(#arrow)">
+<path d="M277 184H306"/><path d="M551 184H580"/><path d="M825 184H854"/>
+<path d="M159 306V274H431V258"/><path d="M990 250V280H433V297"/>
+<path d="M706 280V297"/><path d="M551 380H580"/><path d="M825 380H854"/><path d="M990 446V489"/><path d="M706 498V455"/>
+<path d="M590 550H20V265H100V259" stroke-dasharray="5 5"/>
+</g>
+<text x="329" y="576" font-size="12" fill="#526b66">Status + observations → UI</text>
+<text x="42" y="640" font-size="13" fill="#526b66">Each control step solves a local QP; task selection, contact and the complete robot mission are not one convex problem.</text>
+</g></svg>

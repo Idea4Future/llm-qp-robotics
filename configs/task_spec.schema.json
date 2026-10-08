@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:opti-project:task-spec:v1",
+  "title": "Factory transport optimization task specification",
+  "description": "Structural contract only. Registry validation additionally checks IDs, catalog units/design bounds, grasp fit, skill state transitions and observation freshness. No executor/QP/LLM success is implied.",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "object_id", "source_id", "destination_id", "ordered_skills", "objective_terms", "constraints", "forbidden_zone_ids"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "object_id": {"$ref": "#/$defs/entity_id"},
+    "source_id": {"$ref": "#/$defs/entity_id"},
+    "destination_id": {"$ref": "#/$defs/entity_id"},
+    "ordered_skills": {"type": "array", "minItems": 1, "maxItems": 32, "items": {"$ref": "#/$defs/skill"}},
+    "objective_terms": {
+      "type": "array", "minItems": 1, "maxItems": 6,
+      "items": {"type": "object", "additionalProperties": false, "required": ["term_id", "weight"],
+        "properties": {"term_id": {"enum": ["base_path_tracking", "base_effort", "base_command_change", "arm_tcp_tracking", "arm_joint_velocity", "arm_command_change"]}, "weight": {"type": "number", "minimum": 0, "maximum": 1000}}}
+    },
+    "constraints": {
+      "type": "array", "minItems": 1, "maxItems": 6,
+      "items": {"type": "object", "additionalProperties": false, "required": ["constraint_id", "unit", "bound"],
+        "properties": {"constraint_id": {"enum": ["base_speed_max", "base_accel_max", "base_yaw_rate_max", "obstacle_clearance_min", "arm_joint_speed_max", "arm_joint_accel_max"]}, "unit": {"enum": ["m/s", "m/s^2", "rad/s", "rad/s^2", "m"]}, "bound": {"type": "number", "exclusiveMinimum": 0}}}
+    },
+    "forbidden_zone_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/entity_id"}}
+  },
+  "$defs": {
+    "entity_id": {"type": "string", "minLength": 1, "pattern": "^[A-Za-z][A-Za-z0-9_]*$"},
+    "skill": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["skill_id", "station_id"], "properties": {"skill_id": {"const": "navigate"}, "station_id": {"$ref": "#/$defs/entity_id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["skill_id", "object_id"], "properties": {"skill_id": {"const": "observe"}, "object_id": {"$ref": "#/$defs/entity_id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["skill_id", "object_id", "arm", "grasp_face_id", "gripper_opening_m"], "properties": {"skill_id": {"const": "pick"}, "object_id": {"$ref": "#/$defs/entity_id"}, "arm": {"enum": ["right", "left"]}, "grasp_face_id": {"type": "string", "minLength": 1}, "gripper_opening_m": {"type": "number", "exclusiveMinimum": 0}}},
+        {"type": "object", "additionalProperties": false, "required": ["skill_id", "object_id", "slot_id"], "properties": {"skill_id": {"const": "place_on_tray"}, "object_id": {"$ref": "#/$defs/entity_id"}, "slot_id": {"$ref": "#/$defs/entity_id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["skill_id"], "properties": {"skill_id": {"const": "stow_arms"}}},
+        {"type": "object", "additionalProperties": false, "required": ["skill_id", "object_id", "slot_id", "arm", "grasp_face_id", "gripper_opening_m"], "properties": {"skill_id": {"const": "pick_from_tray"}, "object_id": {"$ref": "#/$defs/entity_id"}, "slot_id": {"$ref": "#/$defs/entity_id"}, "arm": {"enum": ["right", "left"]}, "grasp_face_id": {"type": "string", "minLength": 1}, "gripper_opening_m": {"type": "number", "exclusiveMinimum": 0}}},
+        {"type": "object", "additionalProperties": false, "required": ["skill_id", "object_id", "station_id", "slot_id"], "properties": {"skill_id": {"const": "place"}, "object_id": {"$ref": "#/$defs/entity_id"}, "station_id": {"$ref": "#/$defs/entity_id"}, "slot_id": {"$ref": "#/$defs/entity_id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["skill_id", "object_id", "station_id", "slot_id"], "properties": {"skill_id": {"const": "verify_place"}, "object_id": {"$ref": "#/$defs/entity_id"}, "station_id": {"$ref": "#/$defs/entity_id"}, "slot_id": {"$ref": "#/$defs/entity_id"}}}
+      ]
+    }
+  }
+}

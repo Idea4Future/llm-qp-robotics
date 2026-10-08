@@ -1,0 +1,16 @@
+.envs/
+.venv/
+.cache/
+third_party/
+runs/
+logs/
+results/
+reports/
+__pycache__/
+*.pyc
+.env
+.env.*
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage

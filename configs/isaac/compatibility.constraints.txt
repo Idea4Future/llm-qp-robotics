@@ -1,0 +1,6 @@
+# Tested dependency intersection for Sim 5.1.0 + Lab v2.3.0.
+setuptools==80.9.0
+wheel==0.45.1
+click==8.1.7
+idna==3.10
+transformers==4.57.6

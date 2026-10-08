@@ -1,0 +1,459 @@
+{
+  "schema_version": 1,
+  "world_design": {
+    "frame_id": "factory_map",
+    "clock_id": "simulation",
+    "size_xy_m": [
+      10.0,
+      8.0
+    ],
+    "status": "Factory geometry and static maps are instantiated; nominal DLS, QP, and one actual LLM-to-QP continuous A-to-B episode passed. Versioned results, assumptions and remaining dynamic/localization tests are documented in README.",
+    "machine_bounds_xy_m": [
+      4.0,
+      2.5,
+      6.0,
+      5.0
+    ],
+    "candidate_corridor_zone_ids": [
+      "corridor_lower",
+      "corridor_upper"
+    ],
+    "layout_revision_note": "Move both worktables 0.5m toward factory +Y to enlarge lower passage beneath tabletop footprints after forced-lower NavFn path violated 0.75m center clearance. Earlier failed plans/layouts retained.",
+    "navigation_circle_design": {
+      "center": "wheel axle, base x+0.228m",
+      "radius_m": 0.6,
+      "extra_clearance_m": 0.15,
+      "scope": "Camera, bracket, tray and object collision geometry included. Recorded-state and live nominal carry-envelope checks passed; other postures and general navigation safety are not established.",
+      "planner_grid_buffer_m": 0.05
+    }
+  },
+  "entities": [
+    {
+      "id": "robot_rby1",
+      "kind": "robot",
+      "name": "RB-Y1 모바일 양팔 로봇",
+      "aliases": [
+        "로봇",
+        "RB-Y1"
+      ],
+      "marker_id": null,
+      "observation_required": true,
+      "grippers": {
+        "right": {
+          "opening_design_range_m": [
+            0.02,
+            0.1
+          ],
+          "approach_clearance_each_side_m": 0.005
+        },
+        "left": {
+          "opening_design_range_m": [
+            0.02,
+            0.1
+          ],
+          "approach_clearance_each_side_m": 0.005
+        }
+      },
+      "gripper_limit_status": "Admission design limits, not measured jaw aperture, payload rating, or a general grasp guarantee. Right-arm stationary tested cases are listed on the object. Left arm remains untested."
+    },
+    {
+      "id": "redbin01",
+      "kind": "object",
+      "name": "빨간 부품 용기",
+      "aliases": [
+        "빨간 통",
+        "빨간 용기",
+        "red bin",
+        "red_bin_01"
+      ],
+      "marker_id": 17,
+      "observation_required": true,
+      "mass_kg": 0.1,
+      "dimensions_m": [
+        0.04,
+        0.05,
+        0.06
+      ],
+      "home_station_id": "station_A",
+      "home_slot_id": "slot_A_1",
+      "grasp_faces": {
+        "side_x": {
+          "closing_width_axis": "x",
+          "width_m": 0.04,
+          "approach": "top_down",
+          "marker_face": false
+        }
+      },
+      "marker_design": {
+        "face_id": "top_z",
+        "coded_square_including_black_border_m": 0.03,
+        "white_panel_dimensions_m": [
+          0.04,
+          0.04
+        ],
+        "object_T_marker_design": {
+          "position_m": [
+            0,
+            0,
+            0.03014
+          ],
+          "quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "transform_status": "Design convention: marker origin on the top face, axes aligned with object. Detector must verify its marker convention and convert marker pose to object-center pose."
+      }
+    },
+    {
+      "id": "station_A",
+      "kind": "station",
+      "name": "A 입고 작업대",
+      "aliases": [
+        "입고대",
+        "A 작업대",
+        "A"
+      ],
+      "marker_id": 1,
+      "observation_required": false,
+      "table_center_design_xyz_m": [
+        2.0,
+        2.5,
+        0.8
+      ],
+      "static_dock_design_xyyaw": [
+        1.4,
+        2.86,
+        0.0
+      ],
+      "slot_ids": [
+        "slot_A_1"
+      ],
+      "pose_status": "Layout geometry instantiated by factory_scene.py; station marker detection, factory driving and docking are not yet validated.",
+      "marker_black_square_m": 0.1,
+      "static_predock_design_xyyaw": [
+        0.65,
+        2.86,
+        0.0
+      ]
+    },
+    {
+      "id": "station_B",
+      "kind": "station",
+      "name": "B 조립 작업대",
+      "aliases": [
+        "조립대",
+        "B 작업대",
+        "B"
+      ],
+      "marker_id": 2,
+      "observation_required": false,
+      "table_center_design_xyz_m": [
+        7.5,
+        2.5,
+        0.8
+      ],
+      "static_dock_design_xyyaw": [
+        8.1,
+        2.1399999999999997,
+        3.141592653589793
+      ],
+      "slot_ids": [
+        "slot_B_1"
+      ],
+      "pose_status": "Layout geometry instantiated by factory_scene.py; station marker detection, factory driving and docking are not yet validated.",
+      "marker_black_square_m": 0.1,
+      "static_predock_design_xyyaw": [
+        8.85,
+        2.1399999999999997,
+        3.141592653589793
+      ]
+    },
+    {
+      "id": "slot_A_1",
+      "kind": "slot",
+      "name": "입고대 1번 자리",
+      "aliases": [
+        "A 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_A",
+      "slot_type": "table",
+      "pose_status": "Mapped from local source object center to factory_map; layout only.",
+      "position_design_xyz_m": [
+        1.8,
+        2.56,
+        0.83
+      ]
+    },
+    {
+      "id": "slot_B_1",
+      "kind": "slot",
+      "name": "조립대 1번 자리",
+      "aliases": [
+        "B 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_B",
+      "slot_type": "table",
+      "pose_status": "Mapped from local destination to factory_map at station B; full factory placement not executed.",
+      "position_design_xyz_m": [
+        7.72,
+        2.57,
+        0.83
+      ]
+    },
+    {
+      "id": "tray_slot_1",
+      "kind": "slot",
+      "name": "로봇 트레이 1번 자리",
+      "aliases": [
+        "트레이 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "robot_rby1",
+      "slot_type": "tray",
+      "pose_status": "Local nominal contact tray load/unload verified; factory-relative execution not yet connected."
+    },
+    {
+      "id": "corridor_lower",
+      "kind": "zone",
+      "name": "하부 통로",
+      "aliases": [
+        "아래 통로"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "bounds_design_xy_m": [
+        3.5,
+        0,
+        6.5,
+        2.5
+      ]
+    },
+    {
+      "id": "corridor_upper",
+      "kind": "zone",
+      "name": "상부 통로",
+      "aliases": [
+        "위 통로"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "bounds_design_xy_m": [
+        3.5,
+        5,
+        6.5,
+        8
+      ]
+    }
+  ],
+  "observation_policy": {
+    "max_age_design_s": 0.5,
+    "max_future_stamp_design_s": 0.01,
+    "max_marker_reprojection_error_design_px": 2.0,
+    "sources": [
+      "virtual_aruco",
+      "wheel_imu_localization",
+      "simulator_ground_truth_baseline",
+      "synthetic_test"
+    ],
+    "pose_semantics": "Object body-center pose, not raw marker pose; convert marker-to-object and camera-to-world transforms in the bridge.",
+    "status": "Design rejection thresholds; sensor quality and latency are not measured. Freshness uses the declared simulation clock, not wall-clock time."
+  },
+  "skills": [
+    {
+      "id": "navigate",
+      "required_arguments": [
+        "station_id"
+      ],
+      "status": "Implemented in the restricted stationary A-to-B factory executor; nominal continuous contact/DLS and QP episodes passed. Other stations, objects or left-arm execution remain unsupported."
+    },
+    {
+      "id": "observe",
+      "required_arguments": [
+        "object_id"
+      ],
+      "status": "Implemented in the restricted stationary A-to-B factory executor; nominal continuous contact/DLS and QP episodes passed. Other stations, objects or left-arm execution remain unsupported."
+    },
+    {
+      "id": "pick",
+      "required_arguments": [
+        "object_id",
+        "arm",
+        "grasp_face_id",
+        "gripper_opening_m"
+      ],
+      "status": "Implemented in the restricted stationary A-to-B factory executor; nominal continuous contact/DLS and QP episodes passed. Other stations, objects or left-arm execution remain unsupported."
+    },
+    {
+      "id": "place_on_tray",
+      "required_arguments": [
+        "object_id",
+        "slot_id"
+      ],
+      "status": "Implemented in the restricted stationary A-to-B factory executor; nominal continuous contact/DLS and QP episodes passed. Other stations, objects or left-arm execution remain unsupported."
+    },
+    {
+      "id": "stow_arms",
+      "required_arguments": [],
+      "status": "Executor holds the tested transport posture after tray release and verifies its envelope. This skill name does not imply full arm folding; that trajectory is not implemented."
+    },
+    {
+      "id": "pick_from_tray",
+      "required_arguments": [
+        "object_id",
+        "slot_id",
+        "arm",
+        "grasp_face_id",
+        "gripper_opening_m"
+      ],
+      "status": "Implemented in the restricted stationary A-to-B factory executor; nominal continuous contact/DLS and QP episodes passed. Other stations, objects or left-arm execution remain unsupported."
+    },
+    {
+      "id": "place",
+      "required_arguments": [
+        "object_id",
+        "station_id",
+        "slot_id"
+      ],
+      "status": "Implemented in the restricted stationary A-to-B factory executor; nominal continuous contact/DLS and QP episodes passed. Other stations, objects or left-arm execution remain unsupported."
+    },
+    {
+      "id": "verify_place",
+      "required_arguments": [
+        "object_id",
+        "station_id",
+        "slot_id"
+      ],
+      "status": "Implemented in the restricted stationary A-to-B factory executor; nominal continuous contact/DLS and QP episodes passed. Other stations, objects or left-arm execution remain unsupported."
+    }
+  ],
+  "objective_terms": [
+    {
+      "id": "base_path_tracking",
+      "scope": "base",
+      "description": "Squared local tracking error using a frozen, affine differential-drive model."
+    },
+    {
+      "id": "base_effort",
+      "scope": "base",
+      "description": "Squared normalized translational/angular command magnitude."
+    },
+    {
+      "id": "base_command_change",
+      "scope": "base",
+      "description": "Squared change from the last actually applied base command."
+    },
+    {
+      "id": "arm_tcp_tracking",
+      "scope": "arm",
+      "description": "Squared TCP velocity tracking error using the current frozen Jacobian."
+    },
+    {
+      "id": "arm_joint_velocity",
+      "scope": "arm",
+      "description": "Squared normalized joint velocity."
+    },
+    {
+      "id": "arm_command_change",
+      "scope": "arm",
+      "description": "Squared change from the previous joint velocity command."
+    }
+  ],
+  "objective_policy": {
+    "weight_design_range": [
+      0.0,
+      1000.0
+    ],
+    "required_positive_terms": [
+      "base_path_tracking",
+      "arm_tcp_tracking"
+    ],
+    "status": "Frozen-state velocity QP terms implemented in convex_control.py; physical integration results are versioned separately."
+  },
+  "constraint_types": [
+    {
+      "id": "base_speed_max",
+      "scope": "base",
+      "unit": "m/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        0.6
+      ],
+      "required": true,
+      "interpretation": "Upper bound on the QP translational velocity command; not a proof about measured physical speed."
+    },
+    {
+      "id": "base_accel_max",
+      "scope": "base",
+      "unit": "m/s^2",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        0.8
+      ],
+      "required": true,
+      "interpretation": "Upper bound on consecutive QP translational command change divided by control dt; not measured base acceleration."
+    },
+    {
+      "id": "base_yaw_rate_max",
+      "scope": "base",
+      "unit": "rad/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        1.0
+      ],
+      "required": false,
+      "interpretation": "Upper bound on the QP angular velocity command; physical tracking is evaluated separately."
+    },
+    {
+      "id": "obstacle_clearance_min",
+      "scope": "base",
+      "unit": "m",
+      "sense": "lower",
+      "bound_design_range": [
+        0.05,
+        0.6
+      ],
+      "required": true,
+      "interpretation": "Transit projected-footprint LiDAR margin and admitted global map inflation; near-table docking uses separate known-geometry/contact checks."
+    },
+    {
+      "id": "arm_joint_speed_max",
+      "scope": "arm",
+      "unit": "rad/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        1.0
+      ],
+      "required": true,
+      "interpretation": "Upper bound on QP joint velocity commands; measured velocity has a separate runtime monitor and stated numerical tolerance."
+    },
+    {
+      "id": "arm_joint_accel_max",
+      "scope": "arm",
+      "unit": "rad/s^2",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        2.0
+      ],
+      "required": false,
+      "interpretation": "Upper bound on consecutive QP joint velocity command change divided by control dt; not measured joint acceleration."
+    }
+  ],
+  "constraint_policy": {
+    "status": "Software admission/design ranges, not validated RB-Y1 velocity, acceleration, braking, clearance, or safety ratings.",
+    "executor_rule": "LLM constraints can tighten applicable limits. The executor must also impose the current model limits, collision checks, sensor/TF freshness and stop policy; these cannot be removed by a task specification. A valid specification is not execution or safety validation."
+  },
+  "status": "Factory nominal continuous DLS and QP transport verified in versioned simulation episodes; natural-language end-to-end validation in progress. Not hardware performance."
+}

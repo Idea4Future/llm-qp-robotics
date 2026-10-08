@@ -1,0 +1,45 @@
+{
+  "isaac_sim": "5.1.0",
+  "isaac_lab_tag": "v2.3.0",
+  "python_minor": "3.11",
+  "torch": "2.7.0+cu128",
+  "torchvision": "0.22.0+cu128",
+  "ros_distribution": "humble",
+  "ros_architecture": "Isaac bundled Python 3.11 bridge communicates via DDS with external apt ROS Python 3.10",
+  "rby1_source_commit": "2417a2b2c83bc80b3ad605ab14f4d508d90089a9",
+  "physics_device_initial": "cpu",
+  "python": "3.11.17",
+  "isaac_lab_commit": "3c6e67bb5c7ada942a6d1884ab69338f57596f77",
+  "isaac_lab_package": "0.47.2",
+  "lab_packages": {
+    "isaaclab": "0.47.2",
+    "isaaclab-assets": "0.2.3",
+    "isaaclab-tasks": "0.11.6",
+    "isaaclab-rl": "0.4.4"
+  },
+  "solver": {
+    "cvxpy": "1.6.5",
+    "osqp": "0.6.7.post3",
+    "numpy": "1.26.0",
+    "scipy": "1.15.3",
+    "opencv_python_headless": "4.11.0.86"
+  },
+  "process_architecture": {
+    "command_client": "Separate Python3.10 .venv; stdlib HTTP/planner/UI orchestration",
+    "command_world_scope": "Each command starts a fresh rack-v1 scene at HOME; one selected container from shelf A, B or C is transferred with the right arm via the tray to the outbound table.",
+    "physics": "Conda Python3.11; Isaac CPU PhysX and RTX rendering",
+    "global_planner": "Actual external apt ROS2 Humble ComputePathToPose in system Python3.10",
+    "llm": "Pinned Qwen3-4B Q4_K_M GGUF, llama.cpp CUDA; owned server stops before Isaac starts",
+    "docker": "not used"
+  },
+  "execution_assumptions": [
+    "The transport template uses the right arm; arm self-collision is disabled.",
+    "Derived finger pad colliders only; complete finger metal/housing collision is not validated.",
+    "Fixed rear support skids, friction 0.02 and min combine; not articulated casters.",
+    "GT base localization and camera world pose/extrinsics; RGB ArUco/PnP object estimates.",
+    "Project ideal planar PhysX raycast LiDAR; no noise/reflection/delay model or stock-sensor claim.",
+    "One 40x50x60 mm, 100 g free rigid object; 1 kg tray and generic 100 g wrist camera mount.",
+    "No object attachment, gravity removal or execution-time object pose override.",
+    "2 ms physics / 20 ms QP commands are design intervals, not a hard real-time guarantee."
+  ]
+}

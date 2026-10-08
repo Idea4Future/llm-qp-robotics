@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "status": "nominal_design_not_a_physical_navigation_result",
+  "scene": "official Simple_Warehouse plus project A/B workcells",
+  "localization": "simulator_ground_truth; no AMCL or EKF",
+  "robot": {
+    "model": "official RB-Y1 A v1.2, floating base",
+    "base_prim": "/World/RBY1/base",
+    "wheel_radius_m": 0.1,
+    "wheel_separation_m": 0.53,
+    "axle_offset_base_m": [
+      0.228,
+      0.0,
+      0.0
+    ],
+    "left_wheel_joint": "left_wheel",
+    "right_wheel_joint": "right_wheel",
+    "native_wheel_forward_sign": -1.0,
+    "wheel_geometry_evidence": "Pinned model USD wheel centers (0.228,+/-0.265,0.1), cylinder radius 0.1, joint axis Y with localRot0=(0,1,0,0) -> base -Y. Rolling sign is inferred from geometry and requires the physical drive probe."
+  },
+  "object": {
+    "size_m": [
+      0.04,
+      0.05,
+      0.06
+    ],
+    "mass_kg": 0.1
+  },
+  "tray": {
+    "center_base_m": [
+      0.4,
+      -0.12,
+      0.78
+    ],
+    "floor_size_m": [
+      0.18,
+      0.18,
+      0.016
+    ],
+    "outer_y_half_extent_m": 0.1,
+    "total_mass_kg": 1.0,
+    "status": "design; contact/support/envelope must be measured in Isaac"
+  },
+  "workcells": {
+    "A": {
+      "base_dock_pose_m_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "source_center_m": [
+        0.4,
+        -0.3,
+        0.83
+      ],
+      "table_center_m": [
+        0.6,
+        -0.4,
+        0.775
+      ],
+      "table_size_m": [
+        0.54,
+        0.3,
+        0.05
+      ],
+      "leg_centers_xy_m": [
+        [
+          0.82,
+          -0.5
+        ],
+        [
+          0.82,
+          -0.3
+        ],
+        [
+          0.46,
+          -0.5
+        ],
+        [
+          0.46,
+          -0.3
+        ]
+      ],
+      "leg_size_m": [
+        0.04,
+        0.04,
+        0.75
+      ]
+    },
+    "B": {
+      "base_dock_pose_m_rad": [
+        3.0,
+        0.0,
+        0.0
+      ],
+      "destination_center_m": [
+        3.4,
+        -0.3,
+        0.83
+      ],
+      "table_center_m": [
+        3.6,
+        -0.4,
+        0.775
+      ],
+      "table_size_m": [
+        0.54,
+        0.3,
+        0.05
+      ],
+      "leg_centers_xy_m": [
+        [
+          3.82,
+          -0.5
+        ],
+        [
+          3.82,
+          -0.3
+        ],
+        [
+          3.46,
+          -0.5
+        ],
+        [
+          3.46,
+          -0.3
+        ]
+      ],
+      "leg_size_m": [
+        0.04,
+        0.04,
+        0.75
+      ]
+    }
+  },
+  "navigation": {
+    "A_undocked_base_pose_m_rad": [
+      -0.8,
+      0.0,
+      0.0
+    ],
+    "B_predock_base_pose_m_rad": [
+      2.2,
+      0.0,
+      0.0
+    ],
+    "nominal_axle_polyline_m": [
+      [
+        -0.572,
+        0.0
+      ],
+      [
+        -0.572,
+        1.4
+      ],
+      [
+        2.428,
+        1.4
+      ],
+      [
+        2.428,
+        0.0
+      ]
+    ],
+    "nominal_global_goal_yaw_rad": 0.0,
+    "map_bounds_xy_m": [
+      -2.0,
+      -2.0,
+      5.0,
+      3.0
+    ],
+    "map_resolution_m": 0.05,
+    "design_envelope_radius_m": 0.6,
+    "planning_clearance_margin_m": 0.15,
+    "envelope_status": "0.6 is a design admission cap, NOT a transferred MuJoCo measurement. A fresh Isaac transport-pose collider envelope is required.",
+    "warehouse_status": "Unknown until CollisionAPI bounds are extracted from the loaded warehouse stage; omission must reject navigation admission.",
+    "undock_and_dock": "Separate straight reverse/forward yaw=0 motions; circle global-map clearance is not valid at the workcell dock. Caller must gate these with actual 3D geometry/contact/load checks.",
+    "limits": {
+      "vmax_m_s": 0.1,
+      "omega_max_rad_s": 0.25,
+      "command_accel_m_s2": 0.1,
+      "command_alpha_rad_s2": 0.25,
+      "wheel_rate_cap_rad_s": 3.14,
+      "lookahead_m": 0.25,
+      "position_tolerance_m": 0.015,
+      "yaw_tolerance_rad": 0.025,
+      "position_gain_s_inv": 0.8,
+      "heading_gain_s_inv": 1.5,
+      "barrier_rate_s_inv": 1.5,
+      "tracking_weight_v": 1.0,
+      "tracking_weight_omega": 0.5,
+      "smoothing_weight": 0.2,
+      "solver_eps_abs": 1e-05,
+      "solver_eps_rel": 1e-05,
+      "solver_max_iter": 10000
+    }
+  },
+  "limitations": [
+    "No engine was run to validate this layout, wheel sign, loaded footprint, contact dynamics or route.",
+    "The route is a candidate; actual Nav2 output must be checked against the admitted static map.",
+    "The QP constrains local velocity commands and command slew, not actual acceleration, braking distance or global collision avoidance.",
+    "Static collider AABBs are conservative projected obstacles; source/destination docking needs separate 3D collision validation.",
+    "Ideal known coordinates and GT base pose are used. No LiDAR obstacle perception or dynamic obstacle velocity estimate is implemented here."
+  ]
+}

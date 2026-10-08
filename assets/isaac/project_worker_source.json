@@ -1,0 +1,17 @@
+{
+  "asset_kind": "project-created procedural PPE worker",
+  "generator": "scripts/isaac/moving_person.py:add_moving_person",
+  "geometry": "USD spheres/cubes/capsules, no external mesh or texture",
+  "external_assets_used": [],
+  "external_asset_redistribution": false,
+  "license_provenance": "Original project-generated geometry. No third-party asset license is asserted; follow the project's chosen license for distribution.",
+  "design_assumptions": {
+    "height_m": 1.7,
+    "collision_radius_m": 0.22,
+    "authored_mass_kg": 70.0,
+    "motion": "Scripted native PhysX kinematic lane patrol with robot-priority deceleration, backoff, hold and resume; effectively infinite contact mass.",
+    "animation": "visual limb motion only, not dynamic humanoid control",
+    "collision": "single body capsule; moving limbs are approximated",
+    "lidar": "0.4m plane intersects the actual capsule collider; semantic human recognition not claimed"
+  }
+}

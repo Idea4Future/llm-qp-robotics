@@ -1,0 +1,435 @@
+{
+  "schema_version": 1,
+  "world_design": {
+    "frame_id": "isaac_world",
+    "clock_id": "simulation",
+    "size_xy_m": [
+      7.0,
+      5.5
+    ],
+    "candidate_corridor_zone_ids": [
+      "corridor_lower",
+      "corridor_upper"
+    ],
+    "status": "Nominal A/B warehouse design; actual transport result and collision map must be measured in Isaac. Previous MuJoCo evidence is not reused as an Isaac result.",
+    "navigation_circle_design": {
+      "center": "wheel axle, base-local x+0.228m",
+      "radius_m": 0.6,
+      "extra_clearance_m": 0.15,
+      "scope": "Design cap only; fresh Isaac physical-collider envelope required."
+    }
+  },
+  "entities": [
+    {
+      "id": "robot_rby1",
+      "kind": "robot",
+      "name": "RB-Y1 모바일 양팔 로봇",
+      "aliases": [
+        "로봇",
+        "RB-Y1"
+      ],
+      "marker_id": null,
+      "observation_required": true,
+      "grippers": {
+        "right": {
+          "opening_design_range_m": [
+            0.02,
+            0.08
+          ],
+          "approach_clearance_each_side_m": 0.005
+        },
+        "left": {
+          "opening_design_range_m": [
+            0.02,
+            0.08
+          ],
+          "approach_clearance_each_side_m": 0.005
+        }
+      },
+      "gripper_limit_status": "Isaac executor design. Left-arm grasp is untested; no hardware rating."
+    },
+    {
+      "id": "redbin01",
+      "kind": "object",
+      "name": "빨간 부품 용기",
+      "aliases": [
+        "빨간 통",
+        "빨간 용기",
+        "red bin",
+        "red_bin_01"
+      ],
+      "marker_id": 17,
+      "observation_required": true,
+      "mass_kg": 0.1,
+      "dimensions_m": [
+        0.04,
+        0.05,
+        0.06
+      ],
+      "home_station_id": "station_A",
+      "home_slot_id": "slot_A_1",
+      "grasp_faces": {
+        "side_x": {
+          "closing_width_axis": "x",
+          "width_m": 0.04,
+          "approach": "top_down",
+          "marker_face": false
+        }
+      },
+      "pose_status": "Known initial design pose; actual observation is recorded by the Isaac executor, never by the LLM."
+    },
+    {
+      "id": "station_A",
+      "kind": "station",
+      "name": "A 입고 작업대",
+      "aliases": [
+        "입고대",
+        "A 작업대",
+        "A"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "table_center_design_xyz_m": [
+        0.6,
+        -0.4,
+        0.775
+      ],
+      "static_dock_design_xyyaw": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "static_predock_design_xyyaw": [
+        -0.8,
+        0.0,
+        0.0
+      ],
+      "slot_ids": [
+        "slot_A_1"
+      ],
+      "pose_status": "Isaac world design coordinates. Runtime reach, collision and docking admission are separate."
+    },
+    {
+      "id": "station_B",
+      "kind": "station",
+      "name": "B 조립 작업대",
+      "aliases": [
+        "조립대",
+        "B 작업대",
+        "B"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "table_center_design_xyz_m": [
+        3.6,
+        -0.4,
+        0.775
+      ],
+      "static_dock_design_xyyaw": [
+        3.0,
+        0.0,
+        0.0
+      ],
+      "static_predock_design_xyyaw": [
+        2.2,
+        0.0,
+        0.0
+      ],
+      "slot_ids": [
+        "slot_B_1"
+      ],
+      "pose_status": "Isaac world design coordinates; no previous MuJoCo pose or success claim is transferred."
+    },
+    {
+      "id": "slot_A_1",
+      "kind": "slot",
+      "name": "입고대 1번 자리",
+      "aliases": [
+        "A 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_A",
+      "slot_type": "table",
+      "position_design_xyz_m": [
+        0.4,
+        -0.3,
+        0.83
+      ],
+      "pose_status": "Nominal source design, not a live observation."
+    },
+    {
+      "id": "slot_B_1",
+      "kind": "slot",
+      "name": "조립대 1번 자리",
+      "aliases": [
+        "B 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_B",
+      "slot_type": "table",
+      "position_design_xyz_m": [
+        3.4,
+        -0.3,
+        0.83
+      ],
+      "pose_status": "Nominal destination design; placement must be measured."
+    },
+    {
+      "id": "tray_slot_1",
+      "kind": "slot",
+      "name": "로봇 트레이 1번 자리",
+      "aliases": [
+        "트레이 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "robot_rby1",
+      "slot_type": "tray",
+      "position_design_base_xyz_m": [
+        0.4,
+        -0.12,
+        0.818
+      ],
+      "pose_status": "Base-local nominal resting object center: tray top 0.788 plus object half-height 0.03. Lowering command uses z=0.820 for a 0.002m release allowance. Actual support/transport envelope must be measured."
+    },
+    {
+      "id": "corridor_lower",
+      "kind": "zone",
+      "name": "하부 통로",
+      "aliases": [
+        "아래 통로"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "bounds_design_xy_m": [
+        1.0,
+        -2.5,
+        1.5,
+        -0.25
+      ],
+      "pose_status": "Isaac virtual policy zone, to be inserted as a hard occupied rectangle when forbidden."
+    },
+    {
+      "id": "corridor_upper",
+      "kind": "zone",
+      "name": "상부 통로",
+      "aliases": [
+        "위 통로"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "bounds_design_xy_m": [
+        1.0,
+        0.25,
+        1.5,
+        3.0
+      ],
+      "pose_status": "Isaac virtual policy zone; request failure never relaxes it."
+    }
+  ],
+  "observation_policy": {
+    "max_age_design_s": 0.5,
+    "max_future_stamp_design_s": 0.01,
+    "max_marker_reprojection_error_design_px": 2.0,
+    "sources": [
+      "virtual_aruco",
+      "wheel_imu_localization",
+      "simulator_ground_truth_baseline",
+      "synthetic_test"
+    ],
+    "pose_semantics": "Object body-center pose, not raw marker pose; convert marker-to-object and camera-to-world transforms in the bridge.",
+    "status": "Design rejection thresholds; sensor quality and latency are not measured. Freshness uses the declared simulation clock, not wall-clock time."
+  },
+  "skills": [
+    {
+      "id": "navigate",
+      "required_arguments": [
+        "station_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "observe",
+      "required_arguments": [
+        "object_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "pick",
+      "required_arguments": [
+        "object_id",
+        "arm",
+        "grasp_face_id",
+        "gripper_opening_m"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "place_on_tray",
+      "required_arguments": [
+        "object_id",
+        "slot_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "stow_arms",
+      "required_arguments": [],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "pick_from_tray",
+      "required_arguments": [
+        "object_id",
+        "slot_id",
+        "arm",
+        "grasp_face_id",
+        "gripper_opening_m"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "place",
+      "required_arguments": [
+        "object_id",
+        "station_id",
+        "slot_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "verify_place",
+      "required_arguments": [
+        "object_id",
+        "station_id",
+        "slot_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    }
+  ],
+  "objective_terms": [
+    {
+      "id": "base_path_tracking",
+      "scope": "base",
+      "description": "Squared local tracking error using a frozen, affine differential-drive model."
+    },
+    {
+      "id": "base_effort",
+      "scope": "base",
+      "description": "Squared normalized translational/angular command magnitude."
+    },
+    {
+      "id": "base_command_change",
+      "scope": "base",
+      "description": "Squared change from the last actually applied base command."
+    },
+    {
+      "id": "arm_tcp_tracking",
+      "scope": "arm",
+      "description": "Squared TCP velocity tracking error using the current frozen Jacobian."
+    },
+    {
+      "id": "arm_joint_velocity",
+      "scope": "arm",
+      "description": "Squared normalized joint velocity."
+    },
+    {
+      "id": "arm_command_change",
+      "scope": "arm",
+      "description": "Squared change from the previous joint velocity command."
+    }
+  ],
+  "objective_policy": {
+    "weight_design_range": [
+      0.0,
+      1000.0
+    ],
+    "required_positive_terms": [
+      "base_path_tracking",
+      "arm_tcp_tracking"
+    ],
+    "status": "Frozen-state convex velocity QP specification; actual runtime activation is recorded separately."
+  },
+  "constraint_types": [
+    {
+      "id": "base_speed_max",
+      "scope": "base",
+      "unit": "m/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        0.6
+      ],
+      "required": true,
+      "interpretation": "Upper bound on the QP translational velocity command; not a proof about measured physical speed."
+    },
+    {
+      "id": "base_accel_max",
+      "scope": "base",
+      "unit": "m/s^2",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        0.8
+      ],
+      "required": true,
+      "interpretation": "Upper bound on consecutive QP translational command change divided by control dt; not measured base acceleration."
+    },
+    {
+      "id": "base_yaw_rate_max",
+      "scope": "base",
+      "unit": "rad/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        1.0
+      ],
+      "required": false,
+      "interpretation": "Upper bound on the QP angular velocity command; physical tracking is evaluated separately."
+    },
+    {
+      "id": "obstacle_clearance_min",
+      "scope": "base",
+      "unit": "m",
+      "sense": "lower",
+      "bound_design_range": [
+        0.05,
+        0.6
+      ],
+      "required": true,
+      "interpretation": "Extra margin outside the measured transport circle in the admitted static map and local QP; close table docking uses separate known geometry/contact gates."
+    },
+    {
+      "id": "arm_joint_speed_max",
+      "scope": "arm",
+      "unit": "rad/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        1.0
+      ],
+      "required": true,
+      "interpretation": "Upper bound on QP joint velocity commands; measured velocity has a separate runtime monitor and stated numerical tolerance."
+    },
+    {
+      "id": "arm_joint_accel_max",
+      "scope": "arm",
+      "unit": "rad/s^2",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        2.0
+      ],
+      "required": false,
+      "interpretation": "Upper bound on consecutive QP joint velocity command change divided by control dt; not measured joint acceleration."
+    }
+  ],
+  "constraint_policy": {
+    "status": "Software admission/design ranges, not validated RB-Y1 velocity, acceleration, braking, clearance, or safety ratings.",
+    "executor_rule": "LLM constraints can tighten applicable limits. The executor must also impose the current model limits, collision checks, sensor/TF freshness and stop policy; these cannot be removed by a task specification. A valid specification is not execution or safety validation."
+  },
+  "status": "Planning review catalog; all dynamic observations start unobserved."
+}

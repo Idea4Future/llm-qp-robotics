@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:opti-project:task-proposal:v1",
+  "title": "Concise LLM optimization proposal envelope",
+  "description": "Structural proposal contract. Typed entity enums are filtered at runtime to the selected execution profile; external catalog/intent validation rejects incompatible color/source pairs and hard-bound relaxation. Numbers are never repaired.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "proposal"
+      ],
+      "properties": {
+        "status": {
+          "const": "proposal"
+        },
+        "proposal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema_version",
+            "object_id",
+            "source_id",
+            "destination_id",
+            "destination_slot_id",
+            "forbidden_zone_ids",
+            "objective_weights",
+            "constraint_bounds"
+          ],
+          "properties": {
+            "schema_version": {
+              "type": "integer",
+              "const": 1
+            },
+            "object_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "destination_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "destination_slot_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "forbidden_zone_ids": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "objective_weights": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "base_path_tracking",
+                "base_effort",
+                "base_command_change",
+                "arm_tcp_tracking",
+                "arm_joint_velocity",
+                "arm_command_change"
+              ],
+              "properties": {
+                "base_path_tracking": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 1000
+                },
+                "base_effort": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000
+                },
+                "base_command_change": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000
+                },
+                "arm_tcp_tracking": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 1000
+                },
+                "arm_joint_velocity": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000
+                },
+                "arm_command_change": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000
+                }
+              }
+            },
+            "constraint_bounds": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "base_speed_max",
+                "base_accel_max",
+                "base_yaw_rate_max",
+                "obstacle_clearance_min",
+                "arm_joint_speed_max",
+                "arm_joint_accel_max"
+              ],
+              "properties": {
+                "base_speed_max": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "m/s upper bound on local QP translational command; actual motion monitoring is separate."
+                },
+                "base_accel_max": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "m/s^2 upper bound on successive translational QP command difference divided by control dt, not measured physical acceleration."
+                },
+                "base_yaw_rate_max": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "rad/s upper bound on local QP yaw-rate command."
+                },
+                "obstacle_clearance_min": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "m lower-bound margin in frozen local geometry/linearized QP constraints, not a global physical safety guarantee."
+                },
+                "arm_joint_speed_max": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "rad/s upper bound on each QP joint-velocity command; actual motion monitoring is separate."
+                },
+                "arm_joint_accel_max": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "rad/s^2 upper bound on each successive QP joint-velocity command difference divided by dt, not measured joint acceleration."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason_code",
+        "message",
+        "hard_constraints_relaxed"
+      ],
+      "properties": {
+        "status": {
+          "const": "blocked"
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hard_constraints_relaxed": {
+          "const": false
+        }
+      }
+    }
+  ]
+}

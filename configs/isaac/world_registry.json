@@ -1,0 +1,679 @@
+{
+  "schema_version": 1,
+  "world_design": {
+    "frame_id": "isaac_world",
+    "clock_id": "simulation",
+    "size_xy_m": [
+      16.8,
+      13.5
+    ],
+    "candidate_corridor_zone_ids": [
+      "corridor_lower",
+      "corridor_upper"
+    ],
+    "status": "Rack-v1 nominal design, not measured mission success. Each command creates a fresh scene at home; physical source approach, contact grasp and outbound transport must be validated in Isaac.",
+    "navigation_circle_design": {
+      "center": "wheel axle, base-local x+0.228m",
+      "radius_m": 0.6,
+      "extra_clearance_m": 0.15,
+      "scope": "Design cap only; fresh Isaac physical-collider envelope required."
+    },
+    "layout": "rack-v1",
+    "bounds_design_xy_m": [
+      -8.0,
+      -6.0,
+      8.8,
+      7.5
+    ],
+    "layout_revision": "wide-2026-10-08"
+  },
+  "entities": [
+    {
+      "id": "robot_rby1",
+      "kind": "robot",
+      "name": "RB-Y1 모바일 양팔 로봇",
+      "aliases": [
+        "로봇",
+        "RB-Y1"
+      ],
+      "marker_id": null,
+      "observation_required": true,
+      "grippers": {
+        "right": {
+          "opening_design_range_m": [
+            0.02,
+            0.08
+          ],
+          "approach_clearance_each_side_m": 0.005
+        },
+        "left": {
+          "opening_design_range_m": [
+            0.02,
+            0.08
+          ],
+          "approach_clearance_each_side_m": 0.005
+        }
+      },
+      "gripper_limit_status": "Isaac executor design. Left-arm grasp is untested; no hardware rating."
+    },
+    {
+      "id": "station_home",
+      "kind": "station",
+      "name": "로봇 대기점",
+      "aliases": [
+        "home",
+        "홈",
+        "대기점",
+        "대기 위치"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "static_dock_design_xyyaw": [
+        -6.0,
+        3.5,
+        0.0
+      ],
+      "slot_ids": [],
+      "pose_status": "Initial scene placement only. The robot must physically drive from home to the selected rack."
+    },
+    {
+      "id": "redbin01",
+      "kind": "object",
+      "name": "빨간 부품 용기",
+      "aliases": [
+        "빨간 통",
+        "빨간 용기",
+        "A 선반 빨간 용기",
+        "A 선반 빨간 통"
+      ],
+      "marker_id": 17,
+      "observation_required": true,
+      "mass_kg": 0.1,
+      "dimensions_m": [
+        0.04,
+        0.05,
+        0.06
+      ],
+      "home_station_id": "station_rack_A",
+      "home_slot_id": "slot_rack_A_1",
+      "grasp_faces": {
+        "side_x": {
+          "closing_width_axis": "x",
+          "width_m": 0.04,
+          "approach": "top_down",
+          "marker_face": false
+        }
+      },
+      "pose_status": "Nominal rack work-surface design. Fresh wrist RGB/ArUco observation and physical reach/contact gates are mandatory."
+    },
+    {
+      "id": "station_rack_A",
+      "kind": "station",
+      "name": "A 선반",
+      "aliases": [
+        "A선반",
+        "A 부품 선반"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "static_dock_design_xyyaw": [
+        -5.0,
+        -2.0,
+        0.0
+      ],
+      "static_predock_design_xyyaw": [
+        -5.8,
+        -2.0,
+        0.0
+      ],
+      "slot_ids": [
+        "slot_rack_A_1"
+      ],
+      "rack_bounds_design_xyz_m": [
+        -4.7,
+        -3.1,
+        0.0,
+        -3.3,
+        -2.25,
+        2.6
+      ],
+      "working_surface_design_height_m": 0.8,
+      "upper_shelf_design_heights_m": [
+        1.65,
+        2.35
+      ],
+      "pose_status": "Nominal source rack/dock design. Only one100g object on the0.8m work surface is in the executor contract; upper shelves are not pick targets.",
+      "rack_bounds_scope": "Steel frame only; stored upper cartons reach2.71m."
+    },
+    {
+      "id": "slot_rack_A_1",
+      "kind": "slot",
+      "name": "A 선반 작업면 1번 자리",
+      "aliases": [
+        "A 선반 작업면 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_rack_A",
+      "slot_type": "table",
+      "position_design_xyz_m": [
+        -4.6,
+        -2.3,
+        0.83
+      ],
+      "pose_status": "Nominal initial object center; runtime observation is separate."
+    },
+    {
+      "id": "bluebin01",
+      "kind": "object",
+      "name": "파란 부품 용기",
+      "aliases": [
+        "파란 통",
+        "파란 용기",
+        "B 선반 파란 용기",
+        "B 선반 파란 통"
+      ],
+      "marker_id": 18,
+      "observation_required": true,
+      "mass_kg": 0.1,
+      "dimensions_m": [
+        0.04,
+        0.05,
+        0.06
+      ],
+      "home_station_id": "station_rack_B",
+      "home_slot_id": "slot_rack_B_1",
+      "grasp_faces": {
+        "side_x": {
+          "closing_width_axis": "x",
+          "width_m": 0.04,
+          "approach": "top_down",
+          "marker_face": false
+        }
+      },
+      "pose_status": "Nominal rack work-surface design. Fresh wrist RGB/ArUco observation and physical reach/contact gates are mandatory."
+    },
+    {
+      "id": "station_rack_B",
+      "kind": "station",
+      "name": "B 선반",
+      "aliases": [
+        "B선반",
+        "B 부품 선반"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "static_dock_design_xyyaw": [
+        0.0,
+        -2.0,
+        0.0
+      ],
+      "static_predock_design_xyyaw": [
+        -0.8,
+        -2.0,
+        0.0
+      ],
+      "slot_ids": [
+        "slot_rack_B_1"
+      ],
+      "rack_bounds_design_xyz_m": [
+        0.3,
+        -3.1,
+        0.0,
+        1.7,
+        -2.25,
+        2.6
+      ],
+      "working_surface_design_height_m": 0.8,
+      "upper_shelf_design_heights_m": [
+        1.65,
+        2.35
+      ],
+      "pose_status": "Nominal source rack/dock design. Only one100g object on the0.8m work surface is in the executor contract; upper shelves are not pick targets.",
+      "rack_bounds_scope": "Steel frame only; stored upper cartons reach2.71m."
+    },
+    {
+      "id": "slot_rack_B_1",
+      "kind": "slot",
+      "name": "B 선반 작업면 1번 자리",
+      "aliases": [
+        "B 선반 작업면 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_rack_B",
+      "slot_type": "table",
+      "position_design_xyz_m": [
+        0.4,
+        -2.3,
+        0.83
+      ],
+      "pose_status": "Nominal initial object center; runtime observation is separate."
+    },
+    {
+      "id": "greenbin01",
+      "kind": "object",
+      "name": "초록 부품 용기",
+      "aliases": [
+        "초록 통",
+        "초록 용기",
+        "C 선반 초록 용기",
+        "C 선반 초록 통",
+        "녹색 통",
+        "녹색 용기",
+        "C 선반 녹색 용기"
+      ],
+      "marker_id": 19,
+      "observation_required": true,
+      "mass_kg": 0.1,
+      "dimensions_m": [
+        0.04,
+        0.05,
+        0.06
+      ],
+      "home_station_id": "station_rack_C",
+      "home_slot_id": "slot_rack_C_1",
+      "grasp_faces": {
+        "side_x": {
+          "closing_width_axis": "x",
+          "width_m": 0.04,
+          "approach": "top_down",
+          "marker_face": false
+        }
+      },
+      "pose_status": "Nominal rack work-surface design. Fresh wrist RGB/ArUco observation and physical reach/contact gates are mandatory."
+    },
+    {
+      "id": "station_rack_C",
+      "kind": "station",
+      "name": "C 선반",
+      "aliases": [
+        "C선반",
+        "C 부품 선반"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "static_dock_design_xyyaw": [
+        5.0,
+        -2.0,
+        0.0
+      ],
+      "static_predock_design_xyyaw": [
+        4.2,
+        -2.0,
+        0.0
+      ],
+      "slot_ids": [
+        "slot_rack_C_1"
+      ],
+      "rack_bounds_design_xyz_m": [
+        5.3,
+        -3.1,
+        0.0,
+        6.7,
+        -2.25,
+        2.6
+      ],
+      "working_surface_design_height_m": 0.8,
+      "upper_shelf_design_heights_m": [
+        1.65,
+        2.35
+      ],
+      "pose_status": "Nominal source rack/dock design. Only one100g object on the0.8m work surface is in the executor contract; upper shelves are not pick targets.",
+      "rack_bounds_scope": "Steel frame only; stored upper cartons reach2.71m."
+    },
+    {
+      "id": "slot_rack_C_1",
+      "kind": "slot",
+      "name": "C 선반 작업면 1번 자리",
+      "aliases": [
+        "C 선반 작업면 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_rack_C",
+      "slot_type": "table",
+      "position_design_xyz_m": [
+        5.4,
+        -2.3,
+        0.83
+      ],
+      "pose_status": "Nominal initial object center; runtime observation is separate."
+    },
+    {
+      "id": "station_out",
+      "kind": "station",
+      "name": "출고 작업대",
+      "aliases": [
+        "출고대",
+        "출고 구역",
+        "출고구역"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "table_center_design_xyz_m": [
+        2.6,
+        4.1,
+        0.775
+      ],
+      "table_size_design_xyz_m": [
+        0.54,
+        0.3,
+        0.05
+      ],
+      "static_dock_design_xyyaw": [
+        2.0,
+        4.5,
+        0.0
+      ],
+      "static_predock_design_xyyaw": [
+        1.2,
+        4.5,
+        0.0
+      ],
+      "slot_ids": [
+        "slot_out_1"
+      ],
+      "pose_status": "Nominal outbound table and dock; final support, release and placement must be measured."
+    },
+    {
+      "id": "slot_out_1",
+      "kind": "slot",
+      "name": "출고대 1번 자리",
+      "aliases": [
+        "출고대 첫 번째 자리",
+        "출고 구역 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "station_out",
+      "slot_type": "table",
+      "position_design_xyz_m": [
+        2.4,
+        4.2,
+        0.83
+      ],
+      "pose_status": "Nominal final object center; it is not a success measurement."
+    },
+    {
+      "id": "tray_slot_1",
+      "kind": "slot",
+      "name": "로봇 트레이 1번 자리",
+      "aliases": [
+        "트레이 첫 번째 자리"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "owner_id": "robot_rby1",
+      "slot_type": "tray",
+      "position_design_base_xyz_m": [
+        0.4,
+        -0.12,
+        0.818
+      ],
+      "pose_status": "Base-local nominal resting object center: tray top 0.788 plus object half-height 0.03. Lowering command uses z=0.820 for a 0.002m release allowance. Actual support/transport envelope must be measured."
+    },
+    {
+      "id": "corridor_lower",
+      "kind": "zone",
+      "name": "하부 통로",
+      "aliases": [
+        "아래 통로"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "bounds_design_xy_m": [
+        -0.2,
+        -6.0,
+        0.2,
+        0.0
+      ],
+      "pose_status": "Nominal rack-v1 policy rectangle; when forbidden it is a hard occupied map region. It is not a claim of route feasibility."
+    },
+    {
+      "id": "corridor_upper",
+      "kind": "zone",
+      "name": "상부 통로",
+      "aliases": [
+        "위 통로"
+      ],
+      "marker_id": null,
+      "observation_required": false,
+      "bounds_design_xy_m": [
+        -0.2,
+        0.5,
+        0.2,
+        7.5
+      ],
+      "pose_status": "Nominal rack-v1 policy rectangle; when forbidden it is a hard occupied map region. It is not a claim of route feasibility."
+    }
+  ],
+  "observation_policy": {
+    "max_age_design_s": 0.5,
+    "max_future_stamp_design_s": 0.01,
+    "max_marker_reprojection_error_design_px": 2.0,
+    "sources": [
+      "virtual_aruco",
+      "wheel_imu_localization",
+      "simulator_ground_truth_baseline",
+      "synthetic_test"
+    ],
+    "pose_semantics": "Object body-center pose, not raw marker pose; convert marker-to-object and camera-to-world transforms in the bridge.",
+    "status": "Design rejection thresholds; sensor quality and latency are not measured. Freshness uses the declared simulation clock, not wall-clock time."
+  },
+  "skills": [
+    {
+      "id": "navigate",
+      "required_arguments": [
+        "station_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "observe",
+      "required_arguments": [
+        "object_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "pick",
+      "required_arguments": [
+        "object_id",
+        "arm",
+        "grasp_face_id",
+        "gripper_opening_m"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "place_on_tray",
+      "required_arguments": [
+        "object_id",
+        "slot_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "stow_arms",
+      "required_arguments": [],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "pick_from_tray",
+      "required_arguments": [
+        "object_id",
+        "slot_id",
+        "arm",
+        "grasp_face_id",
+        "gripper_opening_m"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "place",
+      "required_arguments": [
+        "object_id",
+        "station_id",
+        "slot_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    },
+    {
+      "id": "verify_place",
+      "required_arguments": [
+        "object_id",
+        "station_id",
+        "slot_id"
+      ],
+      "status": "Implemented skill contract; this catalog does not assert that the current Isaac episode passed."
+    }
+  ],
+  "objective_terms": [
+    {
+      "id": "base_path_tracking",
+      "scope": "base",
+      "description": "Squared local tracking error using a frozen, affine differential-drive model."
+    },
+    {
+      "id": "base_effort",
+      "scope": "base",
+      "description": "Squared normalized translational/angular command magnitude."
+    },
+    {
+      "id": "base_command_change",
+      "scope": "base",
+      "description": "Squared change from the last actually applied base command."
+    },
+    {
+      "id": "arm_tcp_tracking",
+      "scope": "arm",
+      "description": "Squared TCP velocity tracking error using the current frozen Jacobian."
+    },
+    {
+      "id": "arm_joint_velocity",
+      "scope": "arm",
+      "description": "Squared normalized joint velocity."
+    },
+    {
+      "id": "arm_command_change",
+      "scope": "arm",
+      "description": "Squared change from the previous joint velocity command."
+    }
+  ],
+  "objective_policy": {
+    "weight_design_range": [
+      0.0,
+      1000.0
+    ],
+    "required_positive_terms": [
+      "base_path_tracking",
+      "arm_tcp_tracking"
+    ],
+    "status": "Frozen-state convex velocity QP specification; actual runtime activation is recorded separately."
+  },
+  "constraint_types": [
+    {
+      "id": "base_speed_max",
+      "scope": "base",
+      "unit": "m/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        0.6
+      ],
+      "required": true,
+      "interpretation": "Upper bound on the QP translational velocity command; not a proof about measured physical speed."
+    },
+    {
+      "id": "base_accel_max",
+      "scope": "base",
+      "unit": "m/s^2",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        0.8
+      ],
+      "required": true,
+      "interpretation": "Upper bound on consecutive QP translational command change divided by control dt; not measured base acceleration."
+    },
+    {
+      "id": "base_yaw_rate_max",
+      "scope": "base",
+      "unit": "rad/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        1.0
+      ],
+      "required": false,
+      "interpretation": "Upper bound on the QP angular velocity command; physical tracking is evaluated separately."
+    },
+    {
+      "id": "obstacle_clearance_min",
+      "scope": "base",
+      "unit": "m",
+      "sense": "lower",
+      "bound_design_range": [
+        0.05,
+        0.6
+      ],
+      "required": true,
+      "interpretation": "Extra margin outside the measured transport circle in the admitted static map and local QP; close table docking uses separate known geometry/contact gates."
+    },
+    {
+      "id": "arm_joint_speed_max",
+      "scope": "arm",
+      "unit": "rad/s",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        1.0
+      ],
+      "required": true,
+      "interpretation": "Upper bound on QP joint velocity commands; measured velocity has a separate runtime monitor and stated numerical tolerance."
+    },
+    {
+      "id": "arm_joint_accel_max",
+      "scope": "arm",
+      "unit": "rad/s^2",
+      "sense": "upper",
+      "bound_design_range": [
+        0.05,
+        2.0
+      ],
+      "required": false,
+      "interpretation": "Upper bound on consecutive QP joint velocity command change divided by control dt; not measured joint acceleration."
+    }
+  ],
+  "constraint_policy": {
+    "status": "Software admission/design ranges, not validated RB-Y1 velocity, acceleration, braking, clearance, or safety ratings.",
+    "executor_rule": "LLM constraints can tighten applicable limits. The executor must also impose the current model limits, collision checks, sensor/TF freshness and stop policy; these cannot be removed by a task specification. A valid specification is not execution or safety validation."
+  },
+  "status": "Rack-v1 planning review catalog; all observations start unobserved. Legacy A-to-B registry is preserved in world_registry_legacy.json.",
+  "execution_profile": {
+    "layout": "rack-v1",
+    "source_by_object": {
+      "redbin01": "station_rack_A",
+      "bluebin01": "station_rack_B",
+      "greenbin01": "station_rack_C"
+    },
+    "destination_id": "station_out",
+    "destination_slot_id": "slot_out_1",
+    "initial_station_id": "station_home",
+    "source_navigation": "actual_empty_tray_home_to_selected_source",
+    "normal_motion_design_defaults": {
+      "base_speed_max": 0.25,
+      "base_accel_max": 0.1,
+      "base_yaw_rate_max": 0.3,
+      "obstacle_clearance_min": 0.15,
+      "arm_joint_speed_max": 0.5,
+      "arm_joint_accel_max": 1.5
+    },
+    "base_speed_command_cap_m_s": 0.25,
+    "slow_base_speed_max_m_s": 0.1,
+    "approach_docking_rule": "Source and outbound close docking use separate lower-speed command caps and measured arrival/contact gates.",
+    "status": "Planning software contract only. New rack-v1 physical task is not assumed validated.",
+    "layout_revision": "wide-2026-10-08"
+  }
+}

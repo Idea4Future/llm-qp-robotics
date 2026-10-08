@@ -1,0 +1,20 @@
+{
+  "provider": "llama.cpp",
+  "model_repository": "Qwen/Qwen3-4B-GGUF",
+  "model_revision": "bc640142c66e1fdd12af0bd68f40445458f3869b",
+  "model_path": "third_party/llm_models/qwen3_4b_q4_k_m/Qwen3-4B-Q4_K_M.gguf",
+  "model_sha256": "7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5",
+  "model_license": "Apache-2.0",
+  "runtime_tag": "v0.6.0",
+  "runtime_cuda_path": "third_party/llm_runtime/build_cuda/bin/llama-server",
+  "runtime_cpu_path": "third_party/llm_runtime/build_cpu/bin/llama-server",
+  "host": "127.0.0.1",
+  "port": 8085,
+  "context_tokens": 8192,
+  "parallel_requests": 1,
+  "reasoning": "off",
+  "temperature": 0.2,
+  "seed": 42,
+  "additional_project_training": false,
+  "note": "Pretrained local model with no additional project training. The default command planner uses typed-thinking proposals; objective weights and constraint bounds are validated and compiled into the supported task template."
+}

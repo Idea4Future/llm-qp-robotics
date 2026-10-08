@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/RainbowRobotics/rby1-sim-isaac",
+  "commit": "2417a2b2c83bc80b3ad605ab14f4d508d90089a9",
+  "files": {
+    "README.md": "431bc0d98a8a9efbed2b1ef2899fdac921407504be01abdff75e2407ea98da9b",
+    "assets/gripper/rb_gripper/gripper.json": "05eb7e476d61a3b80e2178c997cf22ebb6859fe919f3e2a9fd553204d556aab7",
+    "assets/gripper/rb_gripper/rb_gripper_left.usd": "cf244f81ba5d3609e7477698a22933aa9d9d6d226c0d0bc7c7755162f58479c6",
+    "assets/gripper/rb_gripper/rb_gripper_right.usd": "579777b147d340c5a6cc48ed2f54ea87d38618b2c44960b950dc5a4c9dd87e99",
+    "assets/model_v_1_2_a.usd": "44596dc52c0f897b11ff27aa0f162d9168239c82e5891e16b67c13a80af00962",
+    "src/config.py": "5c5208ce9c95c1d78099fb55575d87a0ae266a8646db4b8eca66f6a9dfe75fc2",
+    "src/gripper_servers/__init__.py": "eea23e412cee08e5e3670490981611cf6f45cb95255ee6f1a7761c1ab396d4b9",
+    "src/gripper_servers/base.py": "e36be11af69ff516057b9b22eed7b9518cfbbb15c00985a36bc80ac64a109614",
+    "src/gripper_servers/custom_gripper.py": "9a6af88c855665a38b84cea90e4bd49585e7fd62d78bc2922b717901cb6193cb",
+    "src/gripper_servers/rb_gripper.py": "becdf7f51f96ee49b85a5205baa22f357fd51fa5458873d46869c2cfe1c88406",
+    "src/motor_profiles.py": "6a0c5e5b3cb8b6b01eb3fa0c9a1252b99119599dd674f12f0c80e4a350684514",
+    "src/rby1_controller.py": "d94d4dc6497425e0ec73f5cb06c880a7d4e770b155d08471b3626347393dffd3",
+    "src/rby1_robot.py": "ee534f2424a75d79ba7d44aa19787ba95a8fd967f6a778055cdaa14f2847ffe9",
+    "src/rby1_task.py": "6ca4a0dceb9b8750a3ab7b90969eecb279d8785dfc95c44a0625fbe4f203055a",
+    "src/rby1_udp_bridge.py": "88c0c577a955ff09220baabdf26a8fef7dceb5f57e881b04bec2170269efa8ba",
+    "src/sim_gripper_bridge.py": "ff132086e82797dcf5ab8f1b4ee4e484272ea224e822d81b628f26b3ca5e26a5",
+    "src/simulation.py": "265b73a64c486a444a6d737e05c899e3f5b1090bf5104516f373bd1e4f3b792e"
+  },
+  "license_note": "Vendor README licenses source files bearing NVIDIA SPDX headers under Apache-2.0. Asset-wide license is not explicit; setup fetches assets from upstream instead of bundling them."
+}
